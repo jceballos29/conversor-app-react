@@ -1,78 +1,83 @@
-import React, {Fragment,useState} from 'react';
+import React, { useState } from "react";
 
 const toRadian = (grades) => {
-    return grades * 0.01745;
-  };
-
-const toDegrees= (radians) => {
-return radians * 57.296;
+  return grades * 0.01745;
 };
 
+const toDegrees = (radians) => {
+  return radians * 57.296;
+};
 
 const Conversor = () => {
+    let defaultSubtitle = "Waiting to convert..."
+  let [deegrees, setDeegrees] = useState(0);
+  let [radians, setRadians] = useState(0);
+  let [subtitle, setSubtitle] = useState(defaultSubtitle);
+  let [disabled, setDisabled] = useState({
+    convertButton: false,
+    refreshButton: true,
+  });
 
-    let [deegrees,setDeegrees] = useState(0)
-    let [radians,setRadians] = useState(0)
-    let [subtitle, setSubtitle] = useState('Waiting to convert...')
+  const inputDeegrees = (e) => setDeegrees(e.target.value);
 
-    const inputDeegrees = (e) => {
-        setDeegrees(e.target.value)
+  const inputRadians = (e) => setRadians(e.target.value);
+
+  const enviarDatos = (event) => {
+    let result;
+    event.preventDefault();
+    if(deegrees === null || deegrees === 0) {
+      setSubtitle("Converting from Radians to Degrees");
+      result = toDegrees(Number(radians));
+      setDeegrees((deegrees = result));
+    } else if (radians === null || radians === 0) {
+      setSubtitle("Converting from Deegrees to Radians");
+      result = toRadian(Number(deegrees));
+      setRadians((radians = result));
     }
+    setDisabled({ convertButton: true, refreshButton: false })
+  
+  };
 
-    const inputRadians = (e) => {
-        setRadians(e.target.value)
-    }
+  const refresh = (event) => {
+    event.preventDefault();
+    setSubtitle(defaultSubtitle)
+    setDeegrees(0);
+    setRadians(0);
+    setDisabled({ convertButton: false, refreshButton: true });
+  };
 
-    const enviarDatos = (event) => {
-        let result;
-        event.preventDefault();
-        if (deegrees===null || deegrees==0){
-            setSubtitle(subtitle='Converting from Radians to Degrees')
-            result = toDegrees(Number(radians))
-            console.log(result);
-            setDeegrees(deegrees=result);
-        } else if (radians===null || radians==0){
-            setSubtitle(subtitle = 'Converting from Deegrees to Radians')
-            result = toRadian(Number(deegrees))
-            console.log(result);
-            setRadians(radians=result);
-        }
-    }
-
-    const refresh = () => {
-        setDeegrees(deegrees = 0);
-        setRadians(radians = 0);
-
-
-    }
-
-    return (
-        <Fragment>
-            <h1>Conversor</h1>
-            <form onSubmit={enviarDatos}>
-                <h3>{subtitle}</h3>
-                <div>
-                    <label from="deegrees">Deegrees</label>
-                    <input 
-                        type="text" 
-                        name="deegrees" 
-                        value={deegrees}
-                        onChange = {inputDeegrees}
-                    ></input>
-                    <label from="radians">Radians</label>
-                    <input 
-                        type="text" 
-                        name="radians" 
-                        value={radians}
-                        onChange = {inputRadians}
-                    ></input>
-                </div>
-                <button type="submit">Convert</button>
-                <button onClick={refresh}>Refresh</button>
-
-            </form>
-        </Fragment>
-    );
-}
+  return (
+    <div className="Conversor">
+      <h1>Conversor</h1>
+      <form className="Form">
+        <h5>{subtitle}</h5>
+        <div className="Entries">
+          <label from="deegrees">Deegrees:</label>
+          <input
+            type="text"
+            name="deegrees"
+            value={deegrees}
+            onChange={inputDeegrees}
+          ></input>
+          <label from="radians">Radians:</label>
+          <input
+            type="text"
+            name="radians"
+            value={radians}
+            onChange={inputRadians}
+          ></input>
+        </div>
+        <div className="Buttons">
+            <button disabled={disabled.convertButton} onClick={enviarDatos}>
+            Convert
+            </button>
+            <button disabled={disabled.refreshButton} onClick={refresh}>
+            Refresh
+            </button>
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default Conversor;

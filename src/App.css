@@ -1,0 +1,62 @@
+.App {
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color:  #1f618d ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Conversor {
+    max-width: 300px;
+    min-height: 500px;
+}
+
+.Conversor h1 {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    color:  #f8f9f9 ;
+}
+
+.Form {
+    height: 350px; 
+    background-color:#f4f6f6;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.Entries {
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+input {
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #1f618d ;
+    text-align: center;
+    padding: 5px 0px;
+    background: none;
+    font-size: 20px;
+    width: 70%;
+}
+
+.Buttons {
+    min-width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.Buttons button {
+    font-size: 18px;
+    padding: 5px 10px;
+}

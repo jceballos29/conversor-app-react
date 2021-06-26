@@ -10,6 +10,10 @@
 .Conversor {
     max-width: 300px;
     min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .Conversor h1 {
